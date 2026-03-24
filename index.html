@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Registration</title>
+
+<style>
+body {
+    font-family: 'Segoe UI';
+    background: #eef2f7;
+    margin: 0;
+}
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
+h2 {
+    text-align: center;
+}
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+.course {
+    margin: 5px 0;
+}
+.total {
+    font-size: 18px;
+    font-weight: bold;
+    color: green;
+}
+button {
+    background: #28a745;
+    color: white;
+    border: none;
+}
+button:hover {
+    background: #218838;
+}
+.qr {
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Course Registration</h2>
+
+<input type="text" id="name" placeholder="Full Name" required>
+<input type="number" id="mobile" placeholder="Mobile Number" required>
+<input type="email" id="email" placeholder="Email" required>
+
+<h4>Select Courses:</h4>
+
+<div class="course"><input type="checkbox" value="50" data-name="Course 1" onchange="calc()"> Course 1 – ₹50</div>
+<div class="course"><input type="checkbox" value="100" data-name="Course 2" onchange="calc()"> Course 2 – ₹100</div>
+<div class="course"><input type="checkbox" value="80" data-name="Course 3" onchange="calc()"> Course 3 – ₹80</div>
+<div class="course"><input type="checkbox" value="120" data-name="Course 4" onchange="calc()"> Course 4 – ₹120</div>
+<div class="course"><input type="checkbox" value="70" data-name="Course 5" onchange="calc()"> Course 5 – ₹70</div>
+<div class="course"><input type="checkbox" value="90" data-name="Course 6" onchange="calc()"> Course 6 – ₹90</div>
+<div class="course"><input type="checkbox" value="110" data-name="Course 7" onchange="calc()"> Course 7 – ₹110</div>
+
+<div class="total">Total: ₹<span id="total">0</span></div>
+
+<div class="qr">
+<p>Scan & Pay</p>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=yourupi@okaxis">
+</div>
+
+<input type="text" id="receipt" placeholder="Enter Payment Screenshot Name" required>
+
+<button onclick="submitData()">Submit</button>
+
+</div>
+
+<script>
+let total = 0;
+
+function calc() {
+    total = 0;
+    let courses = document.querySelectorAll('input[type="checkbox"]:checked');
+
+    courses.forEach(c => {
+        total += parseInt(c.value);
+    });
+
+    document.getElementById("total").innerText = total;
+}
+
+function submitData() {
+
+    let selectedCourses = [];
+    let courses = document.querySelectorAll('input[type="checkbox"]:checked');
+
+    courses.forEach(c => {
+        selectedCourses.push(c.getAttribute("data-name"));
+    });
+
+    let data = {
+        name: document.getElementById("name").value,
+        mobile: document.getElementById("mobile").value,
+        email: document.getElementById("email").value,
+        courses: selectedCourses.join(", "),
+        total: total,
+        receipt: document.getElementById("receipt").value
+    };
+
+    if(!data.name || !data.mobile || !data.email || selectedCourses.length === 0){
+        alert("Please fill all fields");
+        return;
+    }
+
+    fetch("https://script.google.com/macros/s/AKfycbzDbsXtzZu0CDDs9ZEChb6AajMgtPLgRHVY8B7Ic8X5hTrr7t8vbAbkl25ipTt8esu7/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(res => {
+        alert("Registration Successful!");
+        location.reload();
+    })
+    .catch(err => alert("Error submitting form"));
+}
+</script>
+
+</body>
+</html>
