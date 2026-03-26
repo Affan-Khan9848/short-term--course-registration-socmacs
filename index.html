@@ -12,7 +12,7 @@ body {
     margin: 0;
 }
 .container {
-    max-width: 500px;
+    max-width: 600px;
     margin: auto;
     background: white;
     padding: 20px;
@@ -24,7 +24,12 @@ h2 {
     text-align: center;
 }
 input, button {
-    width: 100%;
+    
+    padding: 10px;
+    margin-top: 10px;
+}
+.details {
+    width: 90%;
     padding: 10px;
     margin-top: 10px;
 }
@@ -37,9 +42,11 @@ input, button {
     color: green;
 }
 button {
-    background: #28a745;
+    background: #2c3e50;
     color: white;
     border: none;
+    padding:10px;
+    border-radius: 5px;
 }
 button:hover {
     background: #218838;
@@ -47,26 +54,50 @@ button:hover {
 .qr {
     text-align: center;
 }
+.header {
+            display: flex;
+            align-items: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-right: 15px;
+        }
+
+        .university-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
 </style>
 </head>
 
 <body>
+ 
 
 <div class="container">
+    <div class="header">
+        <img src="logo1.png" alt="University Logo" class="logo">
+        <div class="university-name">DR. P. A. INAMDAR UNIVERSITY</div>
+    </div>
 <h2>Course Registration</h2>
 
-<input type="text" id="name" placeholder="Full Name" required>
-<input type="number" id="mobile" placeholder="Mobile Number" required>
-<input type="email" id="email" placeholder="Email" required>
+<input class="details" type="text" id="name" placeholder="Full Name" required>
+<input class="details" type="number" id="mobile" placeholder="Mobile Number" required>
+<input class="details" type="email" id="email" placeholder="Email" required>
 
 <h4>Select Courses:</h4>
 
-<div class="course"><input type="checkbox" value="50" data-name="Course 1" onchange="calc()"> Course 1 – ₹50</div>
-<div class="course"><input type="checkbox" value="100" data-name="Course 2" onchange="calc()"> Course 2 – ₹100</div>
-<div class="course"><input type="checkbox" value="80" data-name="Course 3" onchange="calc()"> Course 3 – ₹80</div>
-<div class="course"><input type="checkbox" value="120" data-name="Course 4" onchange="calc()"> Course 4 – ₹120</div>
-<div class="course"><input type="checkbox" value="70" data-name="Course 5" onchange="calc()"> Course 5 – ₹70</div>
-<div class="course"><input type="checkbox" value="90" data-name="Course 6" onchange="calc()"> Course 6 – ₹90</div>
+<div class="course"><input type="checkbox" value="50" data-name="Course 1" onchange="calc()"> Basics of C programming – ₹50</div>
+<div class="course"><input type="checkbox" value="100" data-name="Course 2" onchange="calc()"> Master the basics of Ms-Excel, Word, Powerpoint – ₹100</div>
+<div class="course"><input type="checkbox" value="80" data-name="Course 3" onchange="calc()">  Web Development Bootcamp– ₹80</div>
+<div class="course"><input type="checkbox" value="120" data-name="Course 4" onchange="calc()"> Data Analytics Course – ₹120</div>
+<div class="course"><input type="checkbox" value="70" data-name="Course 5" onchange="calc()"> Mobile Application Development – ₹70</div>
+<div class="course"><input type="checkbox" value="90" data-name="Course 6" onchange="calc()"> Advanced Web Technology using PHP – ₹90</div>
 <div class="course"><input type="checkbox" value="110" data-name="Course 7" onchange="calc()"> Course 7 – ₹110</div>
 
 <div class="total">Total: ₹<span id="total">0</span></div>
@@ -75,8 +106,8 @@ button:hover {
 <p>Scan & Pay</p>
 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=yourupi@okaxis">
 </div>
-
-<input type="text" id="receipt" placeholder="Enter Payment Screenshot Name" required>
+<p>Scan the above QR and add your payment screenshot below and submit the form.</p>
+<input type="file" id="receipt"  required>
 
 <button onclick="submitData()">Submit</button>
 
