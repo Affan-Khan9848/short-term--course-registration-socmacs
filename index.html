@@ -169,10 +169,15 @@ function submitData() {
         receipt: document.getElementById("receipt").value
     };
 
-    if(!data.name || !data.mobile || !data.email || selectedCourses.length === 0 || data.receipt){
+    if(!data.name || !data.mobile || !data.email || selectedCourses.length === 0){
         alert("Please fill all fields");
         return;
     }
+        if(!data.receipt){
+            alert("Please upload payment screenshot");
+            return;
+        }
+    
 
     fetch("https://script.google.com/macros/s/AKfycbzDbsXtzZu0CDDs9ZEChb6AajMgtPLgRHVY8B7Ic8X5hTrr7t8vbAbkl25ipTt8esu7/exec", {
         method: "POST",
