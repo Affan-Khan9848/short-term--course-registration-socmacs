@@ -216,10 +216,10 @@ function submitData() {
         courses: selectedCourses.join(", "),
         total: total,
         receipt: document.getElementById("receipt").value,
-        utr : document.getElementById("utr").value
+        utr : document.getElementById("utr").value,
     };
 
-    if(!data.name || !data.mobile || !data.email || selectedCourses.length === 0 || data.utr ){
+    if(!data.name || !data.mobile || !data.email || !data.utr || selectedCourses.length === 0 ){
         alert("Please fill all fields");
         return;
     }
