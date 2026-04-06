@@ -91,7 +91,7 @@ button:hover {
             .desc2 {
                 font-size: 14px;
             }
-        
+          
         }
 
         /* Small screens (mobile) */
@@ -99,6 +99,10 @@ button:hover {
             .logo {
                 width: 50px;
                 height: 50px;
+            }
+            .scanner{
+                height:330px;
+                width: 220px;
             }
 
            .header {
@@ -171,11 +175,12 @@ button:hover {
 <div class="total">Total: ₹<span id="total">0</span></div>
 
 <div class="qr">
-<p>Scan & Pay</p>
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=yourupi@okaxis">
+<p>Scan the below QR code to make payment</p>
+<img src="scanner.jpg" class="scanner">
 </div>
-<p>Scan the above QR and add your payment screenshot below and submit the form.</p>
-<input type="file" id="receipt"  required>
+<label> Add your payment screenshot: </label><input type="file" id="receipt"  required  style="border: 1px solid grey; border-radius:3px; width:180px">
+<br>
+<label> Enter your UTR or Transaction ID: </label><input type="text" id="utr" placeholder="" required><br>
 
 <button onclick="submitData()">Submit</button>
 
@@ -210,10 +215,11 @@ function submitData() {
         email: document.getElementById("email").value,
         courses: selectedCourses.join(", "),
         total: total,
-        receipt: document.getElementById("receipt").value
+        receipt: document.getElementById("receipt").value,
+        utr : document.getElementById("utr").value
     };
 
-    if(!data.name || !data.mobile || !data.email || selectedCourses.length === 0){
+    if(!data.name || !data.mobile || !data.email || selectedCourses.length === 0 || data.utr ){
         alert("Please fill all fields");
         return;
     }
